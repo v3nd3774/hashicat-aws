@@ -114,6 +114,14 @@ resource "aws_eip_association" "hashicat" {
   allocation_id = aws_eip.hashicat.id
 }
 
+locals {
+  tags = {
+    Name       = "${var.prefix}-hashicat-instance"
+    Billable   = "true"
+    Department = "devops"
+  }
+}
+
 resource aws_instance "hashicat" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
@@ -122,9 +130,7 @@ resource aws_instance "hashicat" {
   subnet_id                   = aws_subnet.hashicat.id
   vpc_security_group_ids      = [aws_security_group.hashicat.id]
 
-  tags = {
-    Name = "${var.prefix}-hashicat-instance"
-  }
+  tags = local.tags
 }
 
 # We're using a little trick here so we can run the provisioner without
