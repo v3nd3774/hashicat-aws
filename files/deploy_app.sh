@@ -24,7 +24,7 @@ div.animate-me {
 
 @keyframes example {
   from {background-color: red;}
-  to {background-color: yellow;}
+  to {background-color: white;}
 }
 </style>
   
